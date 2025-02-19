@@ -1,6 +1,9 @@
 ﻿using BepInEx.Logging;
+using LogUtils.Helpers.Console;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace LogUtils.CompatibilityServices
 {
@@ -11,9 +14,20 @@ namespace LogUtils.CompatibilityServices
     {
         private static BepInExDiskLogListener _listener;
 
+        private static BepInExConsoleLogListener _consoleListener;
+
+        public static Logger ManagedLog;
+
+        public static void DebugFatal(object ex) => ManagedLog.LogFatal(ex);
+
         public static void Run()
         {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                ConsoleVirtualizationHelper.EnableVirtualTerminalProcessing();
+
             _listener = new BepInExDiskLogListener(new TimedLogWriter());
+
+            //_consoleListener = new BepInExConsoleLogListener();
 
             AdaptLoggingSystem();
             TransferData();
@@ -37,6 +51,19 @@ namespace LogUtils.CompatibilityServices
             }
 
             listeners.Add(_listener);
+
+            //Probably this shouln't be a thing
+            //ICollection<ILogListener> consoleListeners = GetListeners();
+
+            //ILogListener consoleFound = consoleListeners.FirstOrDefault(l => l is ConsoleLogListener);
+
+            //if(consoleFound != null)
+            //{
+            //    consoleFound.Dispose();
+            //    consoleListeners.Remove(consoleFound);
+            //}
+
+            //consoleListeners.Add(_consoleListener);
         }
 
         /// <summary>

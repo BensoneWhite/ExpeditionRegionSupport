@@ -10,9 +10,6 @@
 		<Reference Include="../lib/*.dll">
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="Microsoft.CSharp" Version="4.7.0">
-			<Private>false</Private>
-		</Reference>
 	</ItemGroup>
 
 	<Target Name="GenerateMod" AfterTargets="PostBuildEvent">
