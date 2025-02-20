@@ -1,5 +1,7 @@
 ﻿using BepInEx.Logging;
+using LogUtils.Helpers.ConsoleColor;
 using System;
+using _ConsoleColor = System.ConsoleColor;
 using System.Linq;
 using UnityEngine;
 
@@ -116,6 +118,39 @@ namespace LogUtils.Enums
                 updateConversionFields(bepInExEquivalent ?? (LogLevel)customValue, unityEquivalent ?? (LogType)customValue);
             }
         }
+
+        ///This implementarion looks silly, consoleColor is not getting the color from any source
+        //public LogCategory(string value, LogLevel? bepInExEquivalent, LogType? unityEquivalent, Color consoleColor) : base(value, true)
+        //{
+        //    var BepInExLogLevel = bepInExEquivalent.Value.GetHighestLevel();
+        //    switch (BepInExLogLevel)
+        //    {
+        //        case LogLevel.Debug:
+        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Gray);
+        //            break;
+        //        case LogLevel.Message:
+        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.White);
+        //            break;
+        //        case LogLevel.Warning:
+        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Yellow);
+        //            break;
+        //        case LogLevel.Error:
+        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.DarkRed);
+        //            break;
+        //        case LogLevel.Fatal:
+        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Red);
+        //            break;
+        //        default:
+        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Gray);
+        //            break;
+        //    }
+            
+        //    if(consoleColor == null)
+        //    {
+        //        _consoleColor = Color.white;
+        //    }
+            
+        //}
 
         /// <summary>
         /// Constructs a LogCategory instance

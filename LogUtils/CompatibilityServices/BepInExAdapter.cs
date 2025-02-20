@@ -27,7 +27,7 @@ namespace LogUtils.CompatibilityServices
 
             _listener = new BepInExDiskLogListener(new TimedLogWriter());
 
-            //_consoleListener = new BepInExConsoleLogListener();
+            _consoleListener = new BepInExConsoleLogListener();
 
             AdaptLoggingSystem();
             TransferData();
@@ -52,18 +52,15 @@ namespace LogUtils.CompatibilityServices
 
             listeners.Add(_listener);
 
-            //Probably this shouln't be a thing
-            //ICollection<ILogListener> consoleListeners = GetListeners();
+            ILogListener consoleFound = listeners.FirstOrDefault(l => l is ConsoleLogListener);
 
-            //ILogListener consoleFound = consoleListeners.FirstOrDefault(l => l is ConsoleLogListener);
+            if (consoleFound != null)
+            {
+                consoleFound.Dispose();
+                listeners.Remove(consoleFound);
+            }
 
-            //if(consoleFound != null)
-            //{
-            //    consoleFound.Dispose();
-            //    consoleListeners.Remove(consoleFound);
-            //}
-
-            //consoleListeners.Add(_consoleListener);
+            listeners.Add(_consoleListener);
         }
 
         /// <summary>

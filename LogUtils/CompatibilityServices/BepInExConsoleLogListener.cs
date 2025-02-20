@@ -1,8 +1,5 @@
-﻿using BepInEx;
-using BepInEx.Configuration;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using LogUtils.Enums;
-using LogUtils.Helpers.Extensions;
 using System;
 using System.IO;
 using System.Linq;
@@ -47,17 +44,11 @@ namespace LogUtils.CompatibilityServices
             // Convert the category's Unity color to an ANSI escape code.
             string ansiForeground = AnsiColorConverter.AnsiToForeground(category.ConsoleColor);
 
-            // If the conversion failed (returned null or empty), fall back to grey.
-            if (string.IsNullOrEmpty(ansiForeground))
-            {
-                ansiForeground = AnsiColorConverter.AnsiToForeground(Color.grey);
-            }
-
             // Build the final log line with the ANSI code prepended and a reset at the end.
             string logLine = ansiForeground + eventArgs.ToStringLine() + AnsiColorConverter.AnsiReset;
 
             // Write the log line to the console.
-            _consoleStream?.WriteLine(logLine);
+            _consoleStream?.Write(logLine);
         }
 
         /// <summary>
