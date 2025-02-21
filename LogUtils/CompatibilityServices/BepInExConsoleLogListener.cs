@@ -4,17 +4,17 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
-using LogUtils.Helpers.ConsoleColor;
+using LogUtils.Helpers.Console;
 
 namespace LogUtils.CompatibilityServices
 {
     public class BepInExConsoleLogListener : ILogListener, IDisposable
     {
-        private static readonly TextWriter _consoleStream;
-        static bool MatchConsoleManager(Type type) => type.Namespace == "BepInEx" && type.Name == "ConsoleManager";
+        private readonly TextWriter _consoleStream;
 
-        static BepInExConsoleLogListener()
+        private bool MatchConsoleManager(Type type) => type.Namespace == "BepInEx" && type.Name == "ConsoleManager";
+
+        public BepInExConsoleLogListener()
         {
             // Locate the ConsoleManager type from all loaded assemblies.
             var consoleManagerType = AppDomain.CurrentDomain.GetAssemblies()
@@ -42,7 +42,7 @@ namespace LogUtils.CompatibilityServices
             LogCategory category = LogCategory.ToCategory(eventArgs.Level);
 
             // Convert the category's Unity color to an ANSI escape code.
-            string ansiForeground = AnsiColorConverter.AnsiToForeground(category.ConsoleColor);
+            string ansiForeground = AnsiColorConverter.AnsiToForeground(category._ConsoleColor);
 
             // Build the final log line with the ANSI code prepended and a reset at the end.
             string logLine = ansiForeground + eventArgs.ToStringLine() + AnsiColorConverter.AnsiReset;

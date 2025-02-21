@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogUtils.Helpers.Console
 {
@@ -37,7 +33,6 @@ namespace LogUtils.Helpers.Console
             {
                 throw new Exception("Failed to enable virtual terminal processing", e);
             }
-
         }
     }
 }

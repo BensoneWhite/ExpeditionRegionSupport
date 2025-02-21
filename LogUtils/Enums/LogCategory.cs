@@ -1,7 +1,6 @@
 ﻿using BepInEx.Logging;
-using LogUtils.Helpers.ConsoleColor;
+using LogUtils.Helpers.Console;
 using System;
-using _ConsoleColor = System.ConsoleColor;
 using System.Linq;
 using UnityEngine;
 
@@ -64,20 +63,20 @@ namespace LogUtils.Enums
         /// <summary>
         /// The color that will be used in the console, or other write implementation that supports text coloration  
         /// </summary>
-        public virtual Color ConsoleColor
+        public virtual Color _ConsoleColor
         {
             get
             {
                 //TODO: Override for composites
                 if (!ReferenceEquals(ManagedReference, this))
-                    return ManagedReference.ConsoleColor;
+                    return ManagedReference._ConsoleColor;
                 return _consoleColor;
             }
             set
             {
                 //TODO: Override for composites
                 if (!ReferenceEquals(ManagedReference, this))
-                    ManagedReference.ConsoleColor = value;
+                    ManagedReference._ConsoleColor = value;
                 _consoleColor = value;
             }
         }
@@ -126,30 +125,30 @@ namespace LogUtils.Enums
         //    switch (BepInExLogLevel)
         //    {
         //        case LogLevel.Debug:
-        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Gray);
+        //            _ConsoleColor = ConsoleColorUnity.GetUnityColor(ConsoleColor.Gray);
         //            break;
         //        case LogLevel.Message:
-        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.White);
+        //            _ConsoleColor = ConsoleColorUnity.GetUnityColor(ConsoleColor.White);
         //            break;
         //        case LogLevel.Warning:
-        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Yellow);
+        //            _ConsoleColor = ConsoleColorUnity.GetUnityColor(ConsoleColor.Yellow);
         //            break;
         //        case LogLevel.Error:
-        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.DarkRed);
+        //            _ConsoleColor = ConsoleColorUnity.GetUnityColor(ConsoleColor.DarkRed);
         //            break;
         //        case LogLevel.Fatal:
-        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Red);
+        //            _ConsoleColor = ConsoleColorUnity.GetUnityColor(ConsoleColor.Red);
         //            break;
         //        default:
-        //            ConsoleColor = ConsoleColorUnity.GetUnityColor(_ConsoleColor.Gray);
+        //            _ConsoleColor = ConsoleColorUnity.GetUnityColor(ConsoleColor.Gray);
         //            break;
         //    }
-            
-        //    if(consoleColor == null)
+
+        //    if (consoleColor == null)
         //    {
         //        _consoleColor = Color.white;
         //    }
-            
+
         //}
 
         /// <summary>
